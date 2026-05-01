@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Movies{% endblock %}
+{% block content %}
+<div class="toolbar">
+    <h2>Movies</h2>
+    <div class="actions">
+        <a class="btn btn-secondary" href="{{ url_for('movies_search') }}">Search</a>
+        <a class="btn" href="{{ url_for('movies_new') }}">Add movie</a>
+    </div>
+</div>
+
+{% if movies %}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th><th>Genre</th><th>Year</th><th>Length</th>
+            <th>Rating</th><th>Price</th><th>Status</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in movies %}
+        <tr>
+            <td>{{ m.Title }}</td>
+            <td>{{ m.Genre or '—' }}</td>
+            <td>{{ m.ReleaseYear or '—' }}</td>
+            <td>{{ (m.Length ~ ' min') if m.Length else '—' }}</td>
+            <td>{{ m.Rating or '—' }}</td>
+            <td>${{ "%.2f"|format(m.Price) }}</td>
+            <td>
+                {% if m.Rented and m.Rented > 0 %}
+                    <span class="badge badge-warn">Rented out ({{ m.Rented }})</span>
+                {% else %}
+                    <span class="badge badge-ok">Available</span>
+                {% endif %}
+            </td>
+            <td><a class="btn btn-sm btn-secondary" href="{{ url_for('movies_edit', movie_id=m.MovieID) }}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="muted">No movies yet.</p>
+{% endif %}
+{% endblock %}

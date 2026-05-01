@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Record Rental{% endblock %}
+{% block content %}
+<h2>Record New Rental</h2>
+
+{% if not customers or not movies %}
+<div class="card">
+    <p class="muted">You need at least one customer and one movie before recording a rental.</p>
+    <div class="actions">
+        <a class="btn" href="{{ url_for('customers_new') }}">Add customer</a>
+        <a class="btn btn-secondary" href="{{ url_for('movies_new') }}">Add movie</a>
+    </div>
+</div>
+{% else %}
+<form method="post" class="card">
+    <div class="field">
+        <label for="customer_id">Customer</label>
+        <select id="customer_id" name="customer_id" required>
+            <option value="">— Choose customer —</option>
+            {% for c in customers %}
+                <option value="{{ c.CustomerID }}">{{ c.Name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="movie_id">Movie</label>
+        <select id="movie_id" name="movie_id" required>
+            <option value="">— Choose movie —</option>
+            {% for m in movies %}
+                <option value="{{ m.MovieID }}">{{ m.Title }} (${{ "%.2f"|format(m.Price) }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="rental_date">Rental date</label>
+        <input id="rental_date" name="rental_date" type="date" value="{{ today }}">
+    </div>
+    <div class="actions">
+        <button type="submit" class="btn">Record rental</button>
+        <a class="btn btn-secondary" href="{{ url_for('rentals_list') }}">Cancel</a>
+    </div>
+</form>
+{% endif %}
+{% endblock %}

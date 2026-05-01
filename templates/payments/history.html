@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Payments{% endblock %}
+{% block content %}
+<div class="toolbar">
+    <h2>Payment History</h2>
+    <a class="btn" href="{{ url_for('payments_new') }}">Record payment</a>
+</div>
+
+<div class="card">
+    <strong>Total collected:</strong> ${{ "%.2f"|format(total) }}
+</div>
+
+{% if payments %}
+<table>
+    <thead>
+        <tr><th>#</th><th>Date</th><th>Rental</th><th>Customer</th><th>Movie</th><th>Amount</th></tr>
+    </thead>
+    <tbody>
+        {% for p in payments %}
+        <tr>
+            <td>{{ p.PaymentID }}</td>
+            <td>{{ p.PaymentDate }}</td>
+            <td>#{{ p.RentalID }}</td>
+            <td>{{ p.CustomerName }}</td>
+            <td>{{ p.MovieTitle }}</td>
+            <td>${{ "%.2f"|format(p.Amount) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="muted">No payments recorded yet.</p>
+{% endif %}
+{% endblock %}

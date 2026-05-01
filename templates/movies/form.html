@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if movie else 'Add' }} Movie{% endblock %}
+{% block content %}
+<h2>{{ 'Edit' if movie else 'Add' }} Movie</h2>
+
+<form method="post" class="card">
+    <div class="field">
+        <label for="title">Title</label>
+        <input id="title" name="title" required value="{{ movie.Title if movie else '' }}">
+    </div>
+    <div class="field">
+        <label for="genre">Genre</label>
+        <input id="genre" name="genre" value="{{ movie.Genre if movie else '' }}">
+    </div>
+    <div class="field">
+        <label for="release_year">Release year</label>
+        <input id="release_year" name="release_year" type="number" min="1880" max="2100" value="{{ movie.ReleaseYear if movie else '' }}">
+    </div>
+    <div class="field">
+        <label for="length">Length (minutes)</label>
+        <input id="length" name="length" type="number" min="0" value="{{ movie.Length if movie else '' }}">
+    </div>
+    <div class="field">
+        <label for="rating">Rating</label>
+        <input id="rating" name="rating" placeholder="G, PG, PG-13, R..." value="{{ movie.Rating if movie else '' }}">
+    </div>
+    <div class="field">
+        <label for="price">Rental price</label>
+        <input id="price" name="price" type="number" step="0.01" min="0" required value="{{ movie.Price if movie else '0.00' }}">
+    </div>
+    <div class="actions">
+        <button type="submit" class="btn">{{ 'Save changes' if movie else 'Add movie' }}</button>
+        <a class="btn btn-secondary" href="{{ url_for('movies_list') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

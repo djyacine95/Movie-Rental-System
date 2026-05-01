@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Movie Rental System{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="stats">
+    <div class="stat">
+        <div class="label">Customers</div>
+        <div class="value">{{ stats.customers }}</div>
+    </div>
+    <div class="stat">
+        <div class="label">Movies</div>
+        <div class="value">{{ stats.movies }}</div>
+    </div>
+    <div class="stat">
+        <div class="label">Active Rentals</div>
+        <div class="value">{{ stats.active_rentals }}</div>
+    </div>
+    <div class="stat">
+        <div class="label">Total Revenue</div>
+        <div class="value">${{ "%.2f"|format(stats.total_revenue) }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick actions</h3>
+    <p class="muted">Manage your rental store from one place.</p>
+    <div class="actions">
+        <a class="btn" href="{{ url_for('rentals_new') }}">Record rental</a>
+        <a class="btn btn-secondary" href="{{ url_for('payments_new') }}">Record payment</a>
+        <a class="btn btn-secondary" href="{{ url_for('movies_search') }}">Search movies</a>
+        <a class="btn btn-secondary" href="{{ url_for('customers_new') }}">Add customer</a>
+        <a class="btn btn-secondary" href="{{ url_for('movies_new') }}">Add movie</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Rentals{% endblock %}
+{% block content %}
+<div class="toolbar">
+    <h2>Rentals</h2>
+    <a class="btn" href="{{ url_for('rentals_new') }}">Record rental</a>
+</div>
+
+<p class="muted">Rentals not returned within {{ overdue_days }} days are flagged as overdue.</p>
+
+{% if rentals %}
+<table>
+    <thead>
+        <tr>
+            <th>#</th><th>Customer</th><th>Movie</th><th>Rented</th>
+            <th>Returned</th><th>Status</th><th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in rentals %}
+        <tr>
+            <td>{{ r.RentalID }}</td>
+            <td>{{ r.CustomerName }}</td>
+            <td>{{ r.MovieTitle }}</td>
+            <td>{{ r.RentalDate }}</td>
+            <td>{{ r.ReturnDate or '—' }}</td>
+            <td>
+                {% if r.ReturnDate %}
+                    <span class="badge badge-ok">Returned</span>
+                {% elif r.IsOverdue %}
+                    <span class="badge badge-warn">Overdue</span>
+                {% else %}
+                    <span class="badge badge-info">Active</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not r.ReturnDate %}
+                <form method="post" action="{{ url_for('rentals_return', rental_id=r.RentalID) }}" class="inline-form">
+                    <input type="hidden" name="return_date" value="{{ '' }}">
+                    <button type="submit" class="btn btn-sm">Mark returned today</button>
+                </form>
+                {% else %}
+                <span class="muted">—</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="muted">No rentals recorded yet.</p>
+{% endif %}
+{% endblock %}

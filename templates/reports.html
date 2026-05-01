@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h2>Reports</h2>
+
+<div class="card">
+    <h3>Most rented movies</h3>
+    {% if most_rented %}
+    <table>
+        <thead><tr><th>Title</th><th>Genre</th><th>Times Rented</th></tr></thead>
+        <tbody>
+            {% for m in most_rented %}
+            <tr>
+                <td>{{ m.Title }}</td>
+                <td>{{ m.Genre or '—' }}</td>
+                <td>{{ m.RentalCount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No movies on file.</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>Customers with overdue rentals</h3>
+    <p class="muted">Rentals not returned within {{ overdue_days }} days.</p>
+    {% if overdue_customers %}
+    <table>
+        <thead><tr><th>Customer</th><th>Email</th><th>Overdue Rentals</th></tr></thead>
+        <tbody>
+            {% for c in overdue_customers %}
+            <tr>
+                <td>{{ c.Name }}</td>
+                <td>{{ c.Email }}</td>
+                <td>{{ c.OverdueCount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No overdue rentals. Nice!</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>Total payments</h3>
+    <p>
+        <strong>{{ payments_total.c }}</strong> payments totalling
+        <strong>${{ "%.2f"|format(payments_total.s) }}</strong>.
+    </p>
+    {% if payments_by_month %}
+    <table>
+        <thead><tr><th>Month</th><th>Payments</th><th>Total</th></tr></thead>
+        <tbody>
+            {% for row in payments_by_month %}
+            <tr>
+                <td>{{ row.Month }}</td>
+                <td>{{ row.PaymentCount }}</td>
+                <td>${{ "%.2f"|format(row.Total) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

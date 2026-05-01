@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Record Payment{% endblock %}
+{% block content %}
+<h2>Record Payment</h2>
+
+{% if not rentals %}
+<div class="card">
+    <p class="muted">No rentals to attach a payment to. Record a rental first.</p>
+    <a class="btn" href="{{ url_for('rentals_new') }}">Record rental</a>
+</div>
+{% else %}
+<form method="post" class="card">
+    <div class="field">
+        <label for="rental_id">Rental</label>
+        <select id="rental_id" name="rental_id" required>
+            <option value="">— Choose rental —</option>
+            {% for r in rentals %}
+                <option value="{{ r.RentalID }}" data-price="{{ r.Price }}">
+                    #{{ r.RentalID }} — {{ r.CustomerName }} / {{ r.MovieTitle }} (${{ "%.2f"|format(r.Price) }})
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="amount">Amount</label>
+        <input id="amount" name="amount" type="number" step="0.01" min="0" required>
+    </div>
+    <div class="field">
+        <label for="payment_date">Payment date</label>
+        <input id="payment_date" name="payment_date" type="date" value="{{ today }}">
+    </div>
+    <div class="actions">
+        <button type="submit" class="btn">Record payment</button>
+        <a class="btn btn-secondary" href="{{ url_for('payments_history') }}">Cancel</a>
+    </div>
+</form>
+{% endif %}
+{% endblock %}
