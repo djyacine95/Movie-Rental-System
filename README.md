@@ -1,15 +1,15 @@
 # Movie Rental System
 
 A simple movie rental management web app built with **Python Flask**, **SQLite**
-(via the standard library `sqlite3` no ORM), and **Jinja2** templates.
+(via the standard library `sqlite3` - no ORM), and **Jinja2** templates.
 
 ## Features
 
-- **Customers** — list, add, edit
-- **Movies** — list, add, edit, see availability
-- **Rentals** — list, record new rental, mark returned, flag overdue
-- **Payments** — record payment, view history
-- **Reports** — most rented movies, customers with overdue rentals, total payments
+- **Customers** - list, add, edit
+- **Movies** - list, add, edit, see availability
+- **Rentals** - list, record new rental, mark returned, flag overdue
+- **Payments** - record payment, view history
+- **Reports** - most rented movies, customers with overdue rentals, total payments
 
 ## Project structure
 
