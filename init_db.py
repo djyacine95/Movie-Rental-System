@@ -11,10 +11,10 @@ def insert_sample_data():
         return
 
     customers = [
-        ("Yacine Djeddi", "yacine@example.com", "555-0101", "12 Maple Street, San jose"),
-        ("Alexander Singer", "alexander@example.com", "555-0102", "44 Oak Avenue, San jose"),
-        ("William Nguyen", "William@example.com", "555-0103", "7 Pine Road, San jose"),
-        ("Jim Carrey", "Jim@example.com", "555-0104", "88 Birch Lane, New york"),
+        ("Yacine Djeddi", "yacine@example.com", "555-000-1111", "12 Maple Street, San jose"),
+        ("Alexander Singer", "alexander@example.com", "555-222-333", "44 Oak Avenue, San jose"),
+        ("William Nguyen", "William@example.com", "555-444-5555", "7 Pine Road, San jose"),
+        ("Jim Carrey", "Jim@example.com", "555-333-4444", "88 Birch Lane, New york"),
     ]
     for c in customers:
         execute(
