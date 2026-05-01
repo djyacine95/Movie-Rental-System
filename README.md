@@ -1,7 +1,7 @@
 # Movie Rental System
 
 A simple movie rental management web app built with **Python Flask**, **SQLite**
-(via the standard library `sqlite3` — no ORM), and **Jinja2** templates.
+(via the standard library `sqlite3` no ORM), and **Jinja2** templates.
 
 ## Features
 
@@ -53,22 +53,6 @@ The SQLite file is written to `movies.db` by default. Override with the
 | `SECRET_KEY`    | `dev-secret-...`   | Flask session secret (set a real one in prod) |
 | `OVERDUE_DAYS`  | `7`                | Days after which an open rental is overdue    |
 
-## Deploy to Render
-
-1. Push this folder to a GitHub repository.
-2. In [Render](https://render.com/) create a new **Web Service** pointing at the repo.
-3. Configure it as a **Python** service:
-   - **Build command:** `pip install -r requirements.txt && python init_db.py`
-   - **Start command:** `gunicorn app:app`
-4. (Recommended) set environment variables in the Render dashboard:
-   - `SECRET_KEY` — a long random string
-   - `DATABASE_PATH` — e.g. `/var/data/movies.db` if you attach a Render disk
-5. Click **Deploy**.
-
-> ⚠️ Render's default filesystem is ephemeral. For persistent data, attach a
-> Render Disk and point `DATABASE_PATH` to a file inside the mounted disk
-> (for example `/var/data/movies.db`), then re-run `python init_db.py` from a
-> shell once.
 
 ## Notes
 
